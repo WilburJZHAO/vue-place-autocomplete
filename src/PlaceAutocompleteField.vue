@@ -1,10 +1,10 @@
 <template>
     <div class="autocomplete-field" @keydown="onKeydown" @keyup="onKeyup">
-        <input-field
+        <div class="label">{{label}}</div>
+        <input
             v-model="query"
             v-bind-events
             v-bind="$attrs"
-            :label="label"
             :errors="errors"
             :value="value"
             :custom="custom"
@@ -13,7 +13,7 @@
             @focus="onFocus"
             @input="$emit('input', query)">
             <activity-indicator v-if="showActivityIndicator" size="xs" type="spinner"/>
-        </input-field>
+        </input>
         <place-autocomplete-list v-if="predictions && showPredictions" :items="predictions" @item:click="onItemClick" @item:blur="onItemBlur"/>
     </div>
 </template>

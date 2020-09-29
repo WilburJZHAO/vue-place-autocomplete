@@ -1,7 +1,7 @@
 import { isArray } from 'vue-interface/src/Helpers/Functions';
 
 const ALIASES = {
-    'street': ['street_number', 'route', 'intersection'],
+    'street': ['subpremise', 'street_number', 'route', 'intersection'],
     'city': ['locality'],
     'state': ['administrative_area_level_1'],
     'zip': ['postal_code'],
@@ -33,7 +33,8 @@ function extract(type, modifiers, geocoder) {
     const values = geocoder.address_components
         .map(component => {
             if(intersection(component.types, aliases).length) {
-                return component[modifiers.short ? 'short_name' : 'long_name'];
+                console.log(component.types[0])
+                return component.types[0] !== 'subpremise' ? (component[modifiers.short ? 'short_name' : 'long_name']) : (component[modifiers.short ? 'short_name' : 'long_name'] + ' /');
             }
         })
         .filter(value => !!value);
